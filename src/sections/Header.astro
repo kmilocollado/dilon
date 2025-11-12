@@ -1,0 +1,168 @@
+<div class="containerHamburgerButton fixed right-5 top-5 z-[100] hidden">
+  <button
+    id="menuButton"
+    aria-expanded="false"
+    aria-controls="menuMobileContent"
+    class="hamburgerButton group relative flex h-[20px] w-6 cursor-pointer flex-col items-center justify-between transition duration-300 hover:scale-110 lg:hidden"
+    aria-label="Abrir menú de navegación"
+  >
+    <span
+      class="ease h-[2px] w-6 transform bg-primary transition duration-300 group-[.open]:translate-y-2 group-[.open]:rotate-45"
+    ></span>
+    <span
+      class="ease h-[2px] w-6 transform bg-primary transition duration-300 group-[.open]:opacity-0"
+    ></span>
+    <span
+      class="ease h-[2px] w-6 transform bg-primary transition duration-300 group-[.open]:opacity-0"
+    ></span>
+    <span
+      class="ease h-[2px] w-6 transform bg-primary transition duration-300 group-[.open]:-translate-y-[0.6rem] group-[.open]:-rotate-45"
+    ></span>
+  </button>
+</div>
+
+<header class="fixed top-0 w-full z-9" id="mainHeader">
+    <nav class="nav flex items-center justify-center px-8 py-2 text-3xl w-full text-primary font-heading transition-all duration-300">
+        <!-- Links Izquierdos -->
+        <div class="left-links flex items-center transition-all duration-300">
+            <a class="hover:underline md:text-3xl text-2xl" href="/">Portfolio</a>
+            <a class="ml-4 md:ml-8 hover:underline md:text-3xl text-2xl" href="/projects">Projects</a>
+        </div>
+
+        <!-- Logo Container -->
+        <div class="logo-container transition-all duration-300 mx-4 md:mx-8 md:h-28">
+            <figure class="inline-block transition-all duration-300">
+                <img src="/images/logo.webp" alt="Dlion Photography Society Logo" class="md:w-28 md:h-28 w-20 h-20 object-contain default-logo"/>    
+                <img src="/images/logo-scroll.png" alt="Dlion Photography Society Logo Scroll" class="-ml-6 md:w-28 md:h-12 w-36 h-10 object-contain scroll-logo hidden"/>    
+            </figure>
+        </div>
+
+        <!-- Links Derechos -->
+        <div class="right-links flex items-center transition-all duration-300">
+            <a class="hover:underline md:text-3xl text-2xl" href="/about">About</a>
+            <a class="ml-4 md:ml-8 hover:underline md:text-3xl text-2xl" href="/contact">Contact</a>
+        </div>
+    </nav>
+</header>
+
+<script>
+    const header = document.getElementById('mainHeader');
+    const defaultLogo = header?.querySelector('.default-logo');
+    const scrollLogo = header?.querySelector('.scroll-logo');
+    const nav = header?.querySelector('nav');
+    const logoContainer = header?.querySelector('.logo-container');
+    const leftLinks = header?.querySelector('.left-links');
+    const rightLinks = header?.querySelector('.right-links');
+    const containerHamburgerButton = document.querySelector('.containerHamburgerButton')
+    
+    const updateHeader = () => {
+        if (window.scrollY > 100) {
+            // Cambiar logos
+            defaultLogo?.classList.add('hidden');
+            scrollLogo?.classList.remove('hidden');
+            
+            // Ajustar tamaños y espaciado
+            nav?.classList.add('justify-between');
+            nav?.classList.remove('justify-center');
+            logoContainer?.classList.remove('md:h-28');
+            logoContainer?.classList.add('md:h-12', 'h-10');
+            logoContainer?.querySelector('figure')?.classList.add('md:w-30', 'md:h-12','h-full', 'w-full');
+            logoContainer?.querySelector('figure')?.classList.remove('md:w-28', 'md:h-28','h-20', 'w-28');
+
+            // Ajustar espaciado del contenedor del logo
+            logoContainer?.classList.remove('mx-8');
+            
+            // Animar los links
+            leftLinks?.classList.add('transform-none');
+            rightLinks?.classList.add('transform-none');
+
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                leftLinks?.classList.add('hidden');
+                rightLinks?.classList.add('hidden');
+                containerHamburgerButton?.classList.remove('hidden');
+            }
+
+        } else {
+            // Restaurar logos
+            defaultLogo?.classList.remove('hidden');
+            scrollLogo?.classList.add('hidden');
+            
+            // Restaurar tamaños y espaciado
+            nav?.classList.remove('justify-between');
+            nav?.classList.add('justify-center');
+            logoContainer?.classList.remove('md:h-12', 'h-10');
+            logoContainer?.classList.add('md:h-28');
+            logoContainer?.querySelector('figure')?.classList.remove('md:w-30', 'md:h-28');
+            logoContainer?.querySelector('figure')?.classList.add('w-20', 'md:w-28', 'h-20', 'md:h-28');
+            
+            // Restaurar espaciado del contenedor del logo
+            
+            // Restaurar posición de los links
+            leftLinks?.classList.remove('transform-none');
+            rightLinks?.classList.remove('transform-none');
+
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                leftLinks?.classList.remove('hidden');
+                rightLinks?.classList.remove('hidden');
+                containerHamburgerButton?.classList.add('hidden');  
+            }
+        }
+    };
+
+    window.addEventListener('scroll', () => {
+        requestAnimationFrame(updateHeader);
+    });
+
+    // Ejecutar una vez al cargar para establecer el estado inicial
+    updateHeader();
+</script>
+
+<style>
+    header {
+        background: transparent;
+        animation: header-blur-scroll 0.3s linear both;
+        animation-timeline: scroll();
+        animation-range: 0 250px;
+        border-bottom: 1px solid transparent;
+    }
+
+    nav {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .logo-container figure {
+        transform-origin: left center;
+    }
+
+    .left-links, .right-links {
+        transition: all 0.3s ease;
+    }
+
+    .left-links {
+        transform: none;
+    }
+
+    .right-links {
+        transform: none;
+    }
+
+    .left-links.transform-none,
+    .right-links.transform-none {
+        transform: none;
+    }
+
+    @keyframes header-blur-scroll {
+        0% {
+            backdrop-filter: blur(0px);
+            background: transparent;
+        }
+
+        100% {
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.5);
+            padding-bottom: var(--spacing-6);
+            border-bottom-color: var(--color-primary);
+        }
+    }
+</style>

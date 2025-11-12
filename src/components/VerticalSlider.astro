@@ -1,0 +1,157 @@
+---
+import { images } from '@/const/slider-home';  
+---
+
+<!-- Se usa una sección con altura multiplicada por el número de slides para permitir el scroll -->
+<section id="sliderSection" class="relative max-w-7xl mx-auto">
+    <!-- Versión Desktop - Slider con thumbnails -->
+    <div class="hidden md:flex flex-row h-full w-full gap-4 items-start top-28" style={`height: ${images.length * 100}vh;`}>
+        <!-- Main Slider -->
+        <div id="mainSlider" class="sticky top-32 h-screen w-[85%] overflow-hidden">
+            {images.map((image, index) => (
+                <div class={`absolute inset-0 h-full w-full transition-opacity duration-500 ${index === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                     data-slide>
+                    <img
+                        src={image.src}
+                        alt={image.alt}
+                        decoding="async"
+                        class="object-cover animate-fade-in max-h-[calc(100vh-200px)] max-w-full"
+                    />
+                    <span class="flex justify-center mt-3 text-primary text-xs animate-fade-in animate-delay-300">{image.name}</span>       
+                </div>
+            ))}
+        </div>
+
+        <!-- Thumbnails -->
+        <div id="thumbnails" class="custom-scrollbar sticky md:top-30 bottom-0 md:bottom-auto flex flex-row md:flex-col h-[auto] md:h-screen w-full md:w-[15%] gap-4 overflow-x-auto md:overflow-y-auto overflow-y-hidden md:overflow-x-hidden p-2 ml-1">
+            {images.map((image, index) => (
+                <div class={`group h-20 md:h-30 aspect-square md:aspect-auto p-1 shrink-0 md:shrink cursor-pointer transition-all duration-300 ${index === 0 ? 'ring-2 ring-[color:var(--color-primary)] opacity-100' : 'opacity-30 hover:opacity-70'}`}
+                     data-thumb
+                     data-index={index}>
+                    <img
+                        src={image.src}
+                        alt={`Thumbnail ${index + 1}`}
+                        class="h-full w-full object-cover"
+                    />
+                </div>
+            ))}
+        </div>
+    </div>
+
+    <!-- Versión Mobile/Tablet - Galería vertical simple -->
+    <div class="md:hidden flex flex-col gap-8 py-8 px-4 mt-24">
+        {images.map((image) => (
+            <div class="w-full">
+                <img
+                    src={image.src}
+                    alt={image.alt}
+                    decoding="async"
+                    loading="lazy"
+                    class="w-full aspect-[4/3] object-cover animate-fade-in"
+                />
+                <span class="flex justify-center mt-3 text-primary text-xs">{image.name}</span>
+            </div>
+        ))}
+    </div>
+</section>
+
+<style>
+    /* Estilos personalizados para el scrollbar que no se pueden hacer fácilmente con Tailwind */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #e5e7eb;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #6b7280;
+        border-radius: 0.25rem;
+    }
+</style>
+
+<script type="module">
+
+    // Solo inicializar el slider en desktop
+    const isDesktop = window.innerWidth >= 768;
+    
+    if (isDesktop) {
+        document.addEventListener('DOMContentLoaded', () => {
+            let activeIndex = 0;
+            const sliderSection = document.getElementById('sliderSection');
+            const mainSlider = document.getElementById('mainSlider');
+            const thumbnails = document.getElementById('thumbnails');
+            const slides = mainSlider?.querySelectorAll('[data-slide]');
+            const thumbs = thumbnails?.querySelectorAll('[data-thumb]');
+            let isScrolling = false;
+
+    function changeSlide(index) {
+            if (!slides || !thumbs) return;
+
+            // Actualizar slides
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.remove('opacity-0', 'pointer-events-none');
+                    slide.classList.add('opacity-100');
+                } else {
+                    slide.classList.add('opacity-0', 'pointer-events-none');
+                    slide.classList.remove('opacity-100');
+                }
+            });
+
+            // Actualizar thumbnails
+            thumbs.forEach((thumb, i) => {
+                if (i === index) {
+                    thumb.classList.remove('opacity-10');
+                    thumb.classList.add('ring-2', 'ring-[color:var(--color-primary)]', 'opacity-100');
+                } else {
+                    thumb.classList.add('opacity-10');
+                    thumb.classList.remove('ring-2', 'ring-[color:var(--color-primary)]', 'opacity-100');
+                }
+            });
+
+            // Scroll del thumbnail activo a la vista
+            thumbs[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            activeIndex = index;
+        }
+
+        // Event listeners para thumbnails
+        if (thumbs) {
+            thumbs.forEach((thumb) => {
+                thumb.addEventListener('click', () => {
+                    const index = Number(thumb.getAttribute('data-index'));
+                    if (!isNaN(index)) changeSlide(index);
+                });
+            });
+        }
+
+        // Navegación basada en scroll relativa a la sección completa
+        if (sliderSection && slides) {
+            window.addEventListener('scroll', () => {
+                if (!isScrolling) {
+                    window.requestAnimationFrame(() => {
+                        const sectionTop = sliderSection.offsetTop;
+                        const sectionHeight = sliderSection.offsetHeight;
+                        const maxScroll = Math.max(sectionHeight - window.innerHeight, 1);
+                        const scrollY = window.scrollY;
+                        let scrollProgress = (scrollY - sectionTop) / maxScroll;
+                        scrollProgress = Math.max(0, Math.min(1, scrollProgress));
+
+                        const slideIndex = Math.min(
+                            Math.floor(scrollProgress * slides.length),
+                            slides.length - 1
+                        );
+                        if (slideIndex !== activeIndex) {
+                            changeSlide(slideIndex);
+                        }
+                        isScrolling = false;
+                    });
+                    isScrolling = true;
+                }
+            });
+            }
+        });
+    }
+</script>
