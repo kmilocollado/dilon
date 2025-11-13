@@ -73,21 +73,23 @@ import { images } from '@/const/slider-home';
 </style>
 
 <script type="module">
+(function () {
 
-    // Solo inicializar el slider en desktop
-    const isDesktop = window.innerWidth >= 768;
-    
-    if (isDesktop) {
-        document.addEventListener('DOMContentLoaded', () => {
-            let activeIndex = 0;
-            const sliderSection = document.getElementById('sliderSection');
-            const mainSlider = document.getElementById('mainSlider');
-            const thumbnails = document.getElementById('thumbnails');
-            const slides = mainSlider?.querySelectorAll('[data-slide]');
-            const thumbs = thumbnails?.querySelectorAll('[data-thumb]');
-            let isScrolling = false;
+    function initSlider() {
+        
+        const sliderSection = document.getElementById('sliderSection');
+        const mainSlider = document.getElementById('mainSlider');
+        const thumbnails = document.getElementById('thumbnails');
+        const slides = mainSlider?.querySelectorAll('[data-slide]');
+        const thumbs = thumbnails?.querySelectorAll('[data-thumb]');
+        
+        if (!sliderSection || !slides || !thumbs || slides.length === 0) return;
+        if (sliderSection.dataset.sliderInit === 'true') return; // Already initialized
 
-    function changeSlide(index) {
+        let activeIndex = 0;
+        let isScrolling = false;
+
+        function changeSlide(index) {
             if (!slides || !thumbs) return;
 
             // Actualizar slides
@@ -113,7 +115,7 @@ import { images } from '@/const/slider-home';
             });
 
             // Scroll del thumbnail activo a la vista
-            thumbs[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            if (thumbs[index]) thumbs[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             activeIndex = index;
         }
 
@@ -151,7 +153,19 @@ import { images } from '@/const/slider-home';
                     isScrolling = true;
                 }
             });
-            }
-        });
+        }
+
+        // Mark as initialized
+        sliderSection.dataset.sliderInit = 'true';
+        changeSlide(0);
     }
+
+    // Initialize on astro:page-load (client-side navigation)
+    document.addEventListener('astro:page-load', () => {
+        initSlider();
+    });
+
+    // Also initialize on first load
+    initSlider();
+})();
 </script>

@@ -7,8 +7,11 @@
     --color-background: #000000;
     --color-text: #ffffff;
 
+    --color-theme-raisin-black: oklch(25.53% 0.0209 340.25);
+
     --font-heading: 'Trattatello', sans-serif;
 }
+
 
 @font-face {
     font-family: 'Outfit';

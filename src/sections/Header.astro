@@ -1,3 +1,13 @@
+---
+import Facebook from'@/assets/svg/facebook.svg';
+import Instagram from'@/assets/svg/instagram.svg';
+import Youtube from'@/assets/svg/youtube.svg';
+import Whatsapp from'@/assets/svg/whatsapp.svg';
+---
+
+
+
+
 <div class="containerHamburgerButton fixed right-5 top-5 z-[100] hidden">
   <button
     id="menuButton"
@@ -22,7 +32,12 @@
 </div>
 
 <header class="fixed top-0 w-full z-9" id="mainHeader">
-    <nav class="nav flex items-center justify-center px-8 py-2 text-3xl w-full text-primary font-heading transition-all duration-300">
+    <div
+      id="overlay-menu"
+      class="bg-theme-raisin-black/50 fixed inset-0 hidden h-[100vh] md:hidden"
+    >
+    </div>
+    <nav id="navContent" class="nav flex items-center justify-center px-8 py-2 text-3xl w-full text-primary font-heading transition-all duration-500">
         <!-- Links Izquierdos -->
         <div class="left-links flex items-center transition-all duration-300">
             <a class="hover:underline md:text-3xl text-2xl" href="/">Portfolio</a>
@@ -42,80 +57,25 @@
             <a class="hover:underline md:text-3xl text-2xl" href="/about">About</a>
             <a class="ml-4 md:ml-8 hover:underline md:text-3xl text-2xl" href="/contact">Contact</a>
         </div>
+
+        <div class="social-links mt-5">
+            <div class="container mx-auto text-center mt-2 flex justify-center gap-4">
+              <a href="https://facebook.com/dlionphotography" class="hover:scale-125 transition-transform">
+                <Facebook /> 
+              </a>
+              <a href="https://instagram.com/dlionphotography" class="hover:scale-125 transition-transform">
+                <Instagram /> 
+              </a>
+              <a href="https://twitter.com/dlionphotography" class="hover:scale-110 transition-transform">
+                <Youtube /> 
+              </a>
+              <a href="https://twitter.com/dlionphotography" class="hover:scale-110 transition-transform">
+                <Whatsapp /> 
+              </a>
+            </div>
+        </div>
     </nav>
 </header>
-
-<script>
-    const header = document.getElementById('mainHeader');
-    const defaultLogo = header?.querySelector('.default-logo');
-    const scrollLogo = header?.querySelector('.scroll-logo');
-    const nav = header?.querySelector('nav');
-    const logoContainer = header?.querySelector('.logo-container');
-    const leftLinks = header?.querySelector('.left-links');
-    const rightLinks = header?.querySelector('.right-links');
-    const containerHamburgerButton = document.querySelector('.containerHamburgerButton')
-    
-    const updateHeader = () => {
-        if (window.scrollY > 100) {
-            // Cambiar logos
-            defaultLogo?.classList.add('hidden');
-            scrollLogo?.classList.remove('hidden');
-            
-            // Ajustar tamaños y espaciado
-            nav?.classList.add('justify-between');
-            nav?.classList.remove('justify-center');
-            logoContainer?.classList.remove('md:h-28');
-            logoContainer?.classList.add('md:h-12', 'h-10');
-            logoContainer?.querySelector('figure')?.classList.add('md:w-30', 'md:h-12','h-full', 'w-full');
-            logoContainer?.querySelector('figure')?.classList.remove('md:w-28', 'md:h-28','h-20', 'w-28');
-
-            // Ajustar espaciado del contenedor del logo
-            logoContainer?.classList.remove('mx-8');
-            
-            // Animar los links
-            leftLinks?.classList.add('transform-none');
-            rightLinks?.classList.add('transform-none');
-
-            if (window.matchMedia('(max-width: 768px)').matches) {
-                leftLinks?.classList.add('hidden');
-                rightLinks?.classList.add('hidden');
-                containerHamburgerButton?.classList.remove('hidden');
-            }
-
-        } else {
-            // Restaurar logos
-            defaultLogo?.classList.remove('hidden');
-            scrollLogo?.classList.add('hidden');
-            
-            // Restaurar tamaños y espaciado
-            nav?.classList.remove('justify-between');
-            nav?.classList.add('justify-center');
-            logoContainer?.classList.remove('md:h-12', 'h-10');
-            logoContainer?.classList.add('md:h-28');
-            logoContainer?.querySelector('figure')?.classList.remove('md:w-30', 'md:h-28');
-            logoContainer?.querySelector('figure')?.classList.add('w-20', 'md:w-28', 'h-20', 'md:h-28');
-            
-            // Restaurar espaciado del contenedor del logo
-            
-            // Restaurar posición de los links
-            leftLinks?.classList.remove('transform-none');
-            rightLinks?.classList.remove('transform-none');
-
-            if (window.matchMedia('(max-width: 768px)').matches) {
-                leftLinks?.classList.remove('hidden');
-                rightLinks?.classList.remove('hidden');
-                containerHamburgerButton?.classList.add('hidden');  
-            }
-        }
-    };
-
-    window.addEventListener('scroll', () => {
-        requestAnimationFrame(updateHeader);
-    });
-
-    // Ejecutar una vez al cargar para establecer el estado inicial
-    updateHeader();
-</script>
 
 <style>
     header {
@@ -131,6 +91,9 @@
         margin: 0 auto;
     }
 
+    .social-links {
+        display: none;
+    }
     .logo-container figure {
         transform-origin: left center;
     }
@@ -165,4 +128,145 @@
             border-bottom-color: var(--color-primary);
         }
     }
+
+    #navContent {
+    transition:
+      translate 0.3s ease-in-out,
+      visibility 0.3s 0.3s;
+    }
+
+    #navContent.showing {
+        visibility: visible;
+        translate: 0 0;
+        transition:
+        translate 0.3s ease-in-out,
+        visibility 0.3s;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        max-width: 17rem;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 5rem;
+        gap: 10px;
+    }
+    #navContent.showing .social-links {
+        display: flex;
+    }
+    #navContent.showing .left-links, 
+    #navContent.showing .right-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    #navContent.showing .logo-container {
+        display: none;
+    }
+    #navContent.showing .left-links a,
+    #navContent.showing .right-links a {
+        margin: 0;
+    }
 </style>
+
+<script>
+    document.addEventListener('astro:page-load', () => {
+        const header = document.getElementById('mainHeader');
+        const defaultLogo = header?.querySelector('.default-logo');
+        const scrollLogo = header?.querySelector('.scroll-logo');
+        const nav = header?.querySelector('nav');
+        const logoContainer = header?.querySelector('.logo-container');
+        const leftLinks = header?.querySelector('.left-links');
+        const rightLinks = header?.querySelector('.right-links');
+        const containerHamburgerButton = document.querySelector('.containerHamburgerButton')
+        
+        const updateHeader = () => {
+            if (window.scrollY > 100) {
+                // Cambiar logos
+                defaultLogo?.classList.add('hidden');
+                scrollLogo?.classList.remove('hidden');
+                
+                // Ajustar tamaños y espaciado
+                nav?.classList.add('justify-between');
+                nav?.classList.remove('justify-center');
+                logoContainer?.classList.remove('md:h-28');
+                logoContainer?.classList.add('md:h-12', 'h-10');
+                logoContainer?.querySelector('figure')?.classList.add('md:w-30', 'md:h-12','h-full', 'w-full');
+                logoContainer?.querySelector('figure')?.classList.remove('md:w-28', 'md:h-28','h-20', 'w-28');
+
+                // Ajustar espaciado del contenedor del logo
+                logoContainer?.classList.remove('mx-8');
+                
+                // Animar los links
+                leftLinks?.classList.add('transform-none');
+                rightLinks?.classList.add('transform-none');
+
+                if (window.matchMedia('(max-width: 768px)').matches) {
+                    leftLinks?.classList.add('hidden');
+                    rightLinks?.classList.add('hidden');
+                    containerHamburgerButton?.classList.remove('hidden');
+                } else {
+                    // En escritorio, siempre mostrar los links
+                    leftLinks?.classList.remove('hidden');
+                    rightLinks?.classList.remove('hidden');
+                    containerHamburgerButton?.classList.add('hidden');
+                }
+
+            } else {
+                // Restaurar logos
+                defaultLogo?.classList.remove('hidden');
+                scrollLogo?.classList.add('hidden');
+                
+                // Restaurar tamaños y espaciado
+                nav?.classList.remove('justify-between');
+                nav?.classList.add('justify-center');
+                logoContainer?.classList.remove('md:h-12', 'h-10');
+                logoContainer?.classList.add('md:h-28');
+                logoContainer?.querySelector('figure')?.classList.remove('md:w-30', 'md:h-28');
+                logoContainer?.querySelector('figure')?.classList.add('w-20', 'md:w-28', 'h-20', 'md:h-28');
+                
+                // Restaurar espaciado del contenedor del logo
+                
+                // Restaurar posición de los links
+                leftLinks?.classList.remove('transform-none');
+                rightLinks?.classList.remove('transform-none');
+
+                if (window.matchMedia('(max-width: 768px)').matches) {
+                    leftLinks?.classList.remove('hidden');
+                    rightLinks?.classList.remove('hidden');
+                    containerHamburgerButton?.classList.add('hidden');  
+                } else {
+                    // En escritorio, siempre mostrar los links
+                    leftLinks?.classList.remove('hidden');
+                    rightLinks?.classList.remove('hidden');
+                    containerHamburgerButton?.classList.add('hidden');
+                }
+            }
+        };
+
+        window.addEventListener('scroll', () => {
+            requestAnimationFrame(updateHeader);
+        });
+
+        // Ejecutar una vez al cargar para establecer el estado inicial
+        updateHeader();
+    });
+</script>
+<script type="module">
+    document.addEventListener('astro:page-load', () => {
+        function toggleMenu(menuBtn, navContent, overlayMenu) {
+            menuBtn?.classList.toggle('open')
+            navContent?.classList.toggle('showing')
+            overlayMenu?.classList.toggle('hidden')
+        }
+
+        const navContent = document.querySelector('#navContent')
+        const menuButton = document.querySelector('#menuButton')
+        const overlayMenu = document.querySelector('#overlay-menu')
+
+        menuButton?.addEventListener('click', () => toggleMenu(menuButton, navContent, overlayMenu))
+        overlayMenu?.addEventListener('click', () => toggleMenu(menuButton, navContent, overlayMenu))
+    })
+</script>
