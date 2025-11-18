@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@content-island/api-client':
+        specifier: ^0.14.0
+        version: 0.14.0
       '@midudev/tailwind-animations':
         specifier: ^0.2.0
         version: 0.2.0(tailwindcss@4.1.17)
@@ -60,6 +63,9 @@ packages:
   '@capsizecss/unpack@3.0.0':
     resolution: {integrity: sha512-+ntATQe1AlL7nTOYjwjj6w3299CgRot48wL761TUGYpYgAou3AaONZazp0PKZyCyWhudWsjhq1nvRHOvbMzhTA==}
     engines: {node: '>=18'}
+
+  '@content-island/api-client@0.14.0':
+    resolution: {integrity: sha512-5isYGX1sNkPy7IOm5ENsCo61IXUR/vK4T/qtU94u6wjj6R8ozwVrSNA0ibE0eXN3k2cpLdHPHerQjWNZ/CJdig==}
 
   '@emnapi/runtime@1.7.0':
     resolution: {integrity: sha512-oAYoQnCYaQZKVS53Fq23ceWMRxq5EhQsE0x0RdQ55jT7wagMu5k+fS39v1fiSLrtrLQlXwVINenqhLMtTrV/1Q==}
@@ -1720,6 +1726,8 @@ snapshots:
   '@capsizecss/unpack@3.0.0':
     dependencies:
       fontkit: 2.0.4
+
+  '@content-island/api-client@0.14.0': {}
 
   '@emnapi/runtime@1.7.0':
     dependencies:

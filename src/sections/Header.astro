@@ -171,8 +171,11 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
     }
 </style>
 
-<script>
+<script is:inline>
     document.addEventListener('astro:page-load', () => {
+        // Verificar que estamos en el navegador
+        if (typeof window === 'undefined') return;
+        
         const header = document.getElementById('mainHeader');
         const defaultLogo = header?.querySelector('.default-logo');
         const scrollLogo = header?.querySelector('.scroll-logo');
@@ -250,12 +253,20 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
             requestAnimationFrame(updateHeader);
         });
 
+        // Ejecutar cuando cambia el tamaño de ventana
+        window.addEventListener('resize', () => {
+            requestAnimationFrame(updateHeader);
+        });
+
         // Ejecutar una vez al cargar para establecer el estado inicial
         updateHeader();
     });
 </script>
-<script type="module">
+<script is:inline type="module">
     document.addEventListener('astro:page-load', () => {
+        // Verificar que estamos en el navegador
+        if (typeof window === 'undefined') return;
+        
         function toggleMenu(menuBtn, navContent, overlayMenu) {
             menuBtn?.classList.toggle('open')
             navContent?.classList.toggle('showing')
