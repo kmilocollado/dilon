@@ -1,0 +1,104 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getProjectsImage } from "@/pods/projects-collection/projects-collection.api";
+import type { ProjectsCollection } from "@/pods/projects-collection/projects-collection.model";
+
+export async function getStaticPaths() {
+    const projects = await getProjectsImage();
+    
+    return projects.map((project: ProjectsCollection) => ({
+        params: { slug: project.slug },
+        props: { project },
+    }));
+}
+
+const { project } = Astro.props;
+---
+
+<Layout>
+    <div class="project-detail mt-24">
+        <h1>{project.project.namecollection}</h1>
+        
+        <div class="images-gallery">
+            {
+                project.project.images && project.project.images.length > 0 ? (
+                    project.project.images.map((image) => (
+                        <div class="image-item">
+                            <img 
+                                src={image.url} 
+                                alt={project.project.namecollection}
+                                loading="lazy"
+                            />
+                        </div>
+                    ))
+                ) : (
+                    <p class="no-images">No hay imágenes disponibles para este proyecto.</p>
+                )
+            }
+        </div>
+        
+        <a href="/projects" class="back-link">← Volver a proyectos</a>
+    </div>
+</Layout>
+
+<style>
+    .project-detail {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .images-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+    
+    .image-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .image-item:hover {
+        transform: scale(1.05);
+    }
+    
+    .image-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
+    
+    .back-link {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background-color: #333;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .back-link:hover {
+        background-color: #555;
+    }
+    
+    .no-images {
+        text-align: center;
+        color: #666;
+        font-size: 1.2rem;
+        padding: 3rem;
+    }
+</style>
+
