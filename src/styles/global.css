@@ -12,6 +12,14 @@
     --font-heading: 'Trattatello', sans-serif;
 }
 
+@layer base {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+}
+
 
 @font-face {
     font-family: 'Outfit';
