@@ -8,7 +8,7 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
 
 
 
-<div class="containerHamburgerButton fixed right-5 top-5 z-[100] hidden">
+<div id="hamburgerContainer" class="fixed right-5 top-5 z-[100] hidden lg:hidden">
   <button
     id="menuButton"
     aria-expanded="false"
@@ -193,7 +193,7 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
         const logoContainer = header?.querySelector('.logo-container');
         const leftLinks = header?.querySelector('.left-links');
         const rightLinks = header?.querySelector('.right-links');
-        const containerHamburgerButton = document.querySelector('.containerHamburgerButton')
+        const containerHamburgerButton = document.getElementById('hamburgerContainer')
         
         const updateHeader = () => {
             const isMobile = window.matchMedia('(max-width: 768px)').matches;
@@ -235,6 +235,7 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                     leftLinks?.classList.add('hidden');
                     rightLinks?.classList.add('hidden');
                     containerHamburgerButton?.classList.remove('hidden');
+                    console.log('Mobile scroll - Hamburger shown');
                 } else {
                     // En desktop: MOSTRAR LINKS, OCULTAR HAMBURGUESA
                     leftLinks?.classList.remove('hidden');
