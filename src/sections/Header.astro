@@ -220,15 +220,11 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 logoContainer?.classList.add('mx-0');
                 
                 // Reordenar elementos: logo a la izquierda, links a la derecha
-                logoContainer?.classList.remove('md:order-2');
-                logoContainer?.classList.add('md:order-1');
-                leftLinks?.classList.remove('md:order-1');
-                leftLinks?.classList.add('md:order-2');
+                // NO removemos md:order porque eso quiebra el responsive design
                 
                 // Hacer que los links queden juntos sin espaciado entre ellos
                 leftLinks?.classList.remove('ml-0');
-                rightLinks?.classList.remove('ml-4', 'ml-8', 'md:ml-4', 'md:ml-8');
-                rightLinks?.classList.add('ml-0');
+                rightLinks?.classList.remove('ml-0');
                 
                 // Animar los links
                 leftLinks?.classList.add('transform-none');
@@ -268,13 +264,9 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 logoContainer?.classList.add('mx-8');
                 
                 // Restaurar orden original
-                logoContainer?.classList.remove('md:order-1');
-                logoContainer?.classList.add('md:order-2');
-                leftLinks?.classList.remove('md:order-2');
-                leftLinks?.classList.add('md:order-1');
+                // NO removemos md:order porque eso quiebra el responsive design
                 
                 // Restaurar espaciado original entre los links
-                rightLinks?.classList.remove('ml-0');
                 
                 // Restaurar posición de los links
                 leftLinks?.classList.remove('transform-none');
