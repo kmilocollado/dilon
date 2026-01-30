@@ -19,10 +19,8 @@
                 scrollLogo?.classList.remove('hidden');
                 
                 // Ajustar tamaños y espaciado
-                nav?.classList.remove('justify-center');
-                nav?.classList.add('justify-end', 'gap-[30px]');
                 logoContainer?.classList.remove('md:h-28');
-                logoContainer?.classList.add('md:h-12', 'h-10', 'absolute', 'left-0');
+                logoContainer?.classList.add('md:h-12', 'h-10');
                 logoContainer?.querySelector('figure')?.classList.add('md:w-30', 'md:h-12','h-full', 'w-full');
                 logoContainer?.querySelector('figure')?.classList.remove('md:w-28', 'md:h-28','h-20', 'w-28');
 
@@ -52,10 +50,15 @@
                     rightLinks?.classList.add('hidden');
                     containerHamburgerButton?.classList.remove('hidden');
                 } else {
-                    // En escritorio, siempre mostrar los links
+                    // En escritorio, aplicar cambios adicionales
                     leftLinks?.classList.remove('hidden');
                     rightLinks?.classList.remove('hidden');
                     containerHamburgerButton?.classList.add('hidden');
+                    
+                    // Cambios solo para desktop
+                    nav?.classList.remove('justify-center');
+                    nav?.classList.add('justify-end', 'gap-[30px]');
+                    logoContainer?.classList.add('absolute', 'left-0');
                 }
 
             } else {
@@ -64,9 +67,7 @@
                 scrollLogo?.classList.add('hidden');
                 
                 // Restaurar tamaños y espaciado
-                nav?.classList.remove('justify-end', 'gap-[30px]');
-                nav?.classList.add('justify-center');
-                logoContainer?.classList.remove('md:h-12', 'h-10', 'absolute', 'left-0');
+                logoContainer?.classList.remove('md:h-12', 'h-10');
                 logoContainer?.classList.add('md:h-28');
                 logoContainer?.querySelector('figure')?.classList.remove('md:w-30', 'md:h-12');
                 logoContainer?.querySelector('figure')?.classList.add('w-20', 'md:w-28', 'h-20', 'md:h-28');
@@ -89,6 +90,11 @@
                 // Restaurar posición de los links
                 leftLinks?.classList.remove('transform-none');
                 rightLinks?.classList.remove('transform-none');
+                
+                // Restaurar cambios de desktop
+                nav?.classList.remove('justify-end', 'gap-[30px]');
+                nav?.classList.add('justify-center');
+                logoContainer?.classList.remove('absolute', 'left-0');
 
                 if (window.matchMedia('(max-width: 768px)').matches) {
                     leftLinks?.classList.remove('hidden');
