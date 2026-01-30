@@ -1,14 +1,21 @@
 @import "tailwindcss";
 @plugin "@midudev/tailwind-animations";
 
+:root {
+    --color-primary: #ffe66b;
+    --color-secondary: #2d2917;
+    --color-background: #000000;
+    --color-text: #ffffff;
+    --color-theme-raisin-black: oklch(25.53% 0.0209 340.25);
+    --font-heading: 'Trattatello', sans-serif;
+}
+
 * {
     --color-primary: #ffe66b;
     --color-secondary: #2d2917;
     --color-background: #000000;
     --color-text: #ffffff;
-
     --color-theme-raisin-black: oklch(25.53% 0.0209 340.25);
-
     --font-heading: 'Trattatello', sans-serif;
 }
 
@@ -20,17 +27,16 @@
     }
 }
 
-
 @font-face {
     font-family: 'Outfit';
-    src: url('../fonts/Outfit.woff2') format('woff2');
+    src: url('/fonts/Outfit.woff2') format('woff2');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
 }
 @font-face {
     font-family: 'Trattatello';
-    src: url('../fonts/Trattatello.woff2') format('woff2');
+    src: url('/fonts/Trattatello.woff2') format('woff2');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
