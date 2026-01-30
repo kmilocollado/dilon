@@ -37,7 +37,7 @@ const { project } = Astro.props;
             }
         </div>
         
-        <a href="/projects" class="back-link">← Volver a proyectos</a>
+        <a href={`${import.meta.env.BASE_URL}projects`} class="back-link">← Volver a proyectos</a>
     </div>
 </Layout>
 
