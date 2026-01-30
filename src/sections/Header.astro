@@ -39,13 +39,13 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
     </div>
     <nav id="navContent" class="nav flex items-center justify-center px-8 py-2 text-3xl w-full text-primary font-heading transition-all duration-500">
         <!-- Links Izquierdos -->
-        <div class="left-links flex items-center transition-all duration-300">
+        <div class="left-links flex items-center transition-all duration-300 md:order-1">
             <a class="text-primary font-heading hover:underline md:text-3xl text-2xl" href="/">Portfolio</a>
             <a class="text-primary font-heading ml-4 md:ml-8 hover:underline md:text-3xl text-2xl" href="/projects">Projects</a>
         </div>
 
         <!-- Logo Container -->
-        <div class="logo-container transition-all duration-300 mx-4 md:mx-8 md:h-28">
+        <div class="logo-container transition-all duration-300 mx-4 md:mx-8 md:h-28 md:order-2">
             <figure class="inline-block transition-all duration-300">
                 <img src={`${import.meta.env.BASE_URL}images/logo.webp`} alt="Dlion Photography Society Logo" class="md:w-28 md:h-28 w-20 h-20 object-contain default-logo"/>    
                 <img src={`${import.meta.env.BASE_URL}images/logo-scroll.png`} alt="Dlion Photography Society Logo Scroll" class="-ml-6 md:w-28 md:h-12 w-36 h-10 object-contain scroll-logo hidden"/>    
@@ -53,7 +53,7 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
         </div>
 
         <!-- Links Derechos -->
-        <div class="right-links flex items-center transition-all duration-300">
+        <div class="right-links flex items-center transition-all duration-300 md:order-3">
             <a class="text-primary font-heading hover:underline md:text-3xl text-2xl" href="/about">About</a>
             <a class="text-primary font-heading ml-4 md:ml-8 hover:underline md:text-3xl text-2xl" href="/contact">Contact</a>
         </div>
@@ -201,6 +201,15 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
 
                 // Ajustar espaciado del contenedor del logo
                 logoContainer?.classList.remove('mx-8');
+                logoContainer?.classList.add('mx-0');
+                
+                // Reordenar elementos: logo a la izquierda, links a la derecha
+                logoContainer?.classList.remove('md:order-2');
+                logoContainer?.classList.add('md:order-1');
+                leftLinks?.classList.remove('md:order-1');
+                leftLinks?.classList.add('md:order-2');
+                rightLinks?.classList.remove('md:order-3');
+                rightLinks?.classList.add('md:order-3');
                 
                 // Animar los links
                 leftLinks?.classList.add('transform-none');
@@ -227,10 +236,20 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 nav?.classList.add('justify-center');
                 logoContainer?.classList.remove('md:h-12', 'h-10');
                 logoContainer?.classList.add('md:h-28');
-                logoContainer?.querySelector('figure')?.classList.remove('md:w-30', 'md:h-28');
+                logoContainer?.querySelector('figure')?.classList.remove('md:w-30', 'md:h-12');
                 logoContainer?.querySelector('figure')?.classList.add('w-20', 'md:w-28', 'h-20', 'md:h-28');
                 
                 // Restaurar espaciado del contenedor del logo
+                logoContainer?.classList.remove('mx-0');
+                logoContainer?.classList.add('mx-8');
+                
+                // Restaurar orden original
+                logoContainer?.classList.remove('md:order-1');
+                logoContainer?.classList.add('md:order-2');
+                leftLinks?.classList.remove('md:order-2');
+                leftLinks?.classList.add('md:order-1');
+                rightLinks?.classList.remove('md:order-3');
+                rightLinks?.classList.add('md:order-3');
                 
                 // Restaurar posición de los links
                 leftLinks?.classList.remove('transform-none');
