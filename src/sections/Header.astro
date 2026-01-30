@@ -8,12 +8,12 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
 
 
 
-<div id="hamburgerContainer" class="fixed right-5 top-5 z-[100] hidden lg:hidden">
+<div id="hamburgerContainer" class="fixed right-5 top-5 z-[100] hidden">
   <button
     id="menuButton"
     aria-expanded="false"
     aria-controls="menuMobileContent"
-    class="hamburgerButton group relative flex h-[20px] w-6 cursor-pointer flex-col items-center justify-between transition duration-300 hover:scale-110 lg:hidden"
+    class="hamburgerButton group relative flex h-[20px] w-6 cursor-pointer flex-col items-center justify-between transition duration-300 hover:scale-110"
     aria-label="Abrir menú de navegación"
   >
     <span
@@ -235,7 +235,6 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                     leftLinks?.classList.add('hidden');
                     rightLinks?.classList.add('hidden');
                     containerHamburgerButton?.classList.remove('hidden');
-                    console.log('Mobile scroll - Hamburger shown');
                 } else {
                     // En desktop: MOSTRAR LINKS, OCULTAR HAMBURGUESA
                     leftLinks?.classList.remove('hidden');
