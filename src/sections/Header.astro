@@ -37,7 +37,7 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
       class="bg-theme-raisin-black/50 fixed inset-0 hidden h-[100vh] md:hidden"
     >
     </div>
-    <nav id="navContent" class="nav flex items-center justify-center px-8 py-2 text-3xl w-full text-primary font-heading transition-all duration-500">
+    <nav id="navContent" class="nav flex items-center justify-center px-8 py-2 text-3xl w-full text-primary font-heading transition-all duration-500 relative">
         <!-- Links Izquierdos -->
         <div class="left-links flex items-center transition-all duration-300 md:order-1">
             <a class="text-primary font-heading hover:underline md:text-3xl text-2xl" href="/">Portfolio</a>
@@ -96,6 +96,11 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
     }
     .logo-container figure {
         transform-origin: left center;
+    }
+
+    .logo-container.absolute {
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     .left-links, .right-links {
@@ -197,10 +202,10 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 scrollLogo?.classList.remove('hidden');
                 
                 // Ajustar tamaños y espaciado
-                nav?.classList.add('justify-between');
                 nav?.classList.remove('justify-center');
+                nav?.classList.add('justify-end', 'gap-[30px]');
                 logoContainer?.classList.remove('md:h-28');
-                logoContainer?.classList.add('md:h-12', 'h-10');
+                logoContainer?.classList.add('md:h-12', 'h-10', 'absolute', 'left-0');
                 logoContainer?.querySelector('figure')?.classList.add('md:w-30', 'md:h-12','h-full', 'w-full');
                 logoContainer?.querySelector('figure')?.classList.remove('md:w-28', 'md:h-28','h-20', 'w-28');
 
@@ -242,9 +247,9 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 scrollLogo?.classList.add('hidden');
                 
                 // Restaurar tamaños y espaciado
-                nav?.classList.remove('justify-between');
+                nav?.classList.remove('justify-end', 'gap-[30px]');
                 nav?.classList.add('justify-center');
-                logoContainer?.classList.remove('md:h-12', 'h-10');
+                logoContainer?.classList.remove('md:h-12', 'h-10', 'absolute', 'left-0');
                 logoContainer?.classList.add('md:h-28');
                 logoContainer?.querySelector('figure')?.classList.remove('md:w-30', 'md:h-12');
                 logoContainer?.querySelector('figure')?.classList.add('w-20', 'md:w-28', 'h-20', 'md:h-28');
