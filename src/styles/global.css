@@ -44,3 +44,14 @@
 body {
     font-family: 'Outfit', sans-serif;
 }
+
+/* Custom utility classes */
+@layer components {
+    .text-primary {
+        color: var(--color-primary);
+    }
+    
+    .font-heading {
+        font-family: var(--font-heading);
+    }
+}
