@@ -15,8 +15,6 @@
         const containerHamburgerButton = document.querySelector('.containerHamburgerButton')
         
         const updateHeader = () => {
-            const isMobile = window.matchMedia('(max-width: 768px)').matches;
-            
             if (window.scrollY > 100) {
                 // Cambiar logos
                 defaultLogo?.classList.add('hidden');
@@ -49,12 +47,13 @@
                 leftLinks?.classList.add('transform-none');
                 rightLinks?.classList.add('transform-none');
 
-                if (isMobile) {
+                // En móviles y tablets: ocultar links, mostrar hamburguesa
+                if (window.matchMedia('(max-width: 768px)').matches) {
                     leftLinks?.classList.add('hidden');
                     rightLinks?.classList.add('hidden');
                     containerHamburgerButton?.classList.remove('hidden');
                 } else {
-                    // En escritorio, aplicar cambios adicionales
+                    // En escritorio, mostrar links normalmente
                     leftLinks?.classList.remove('hidden');
                     rightLinks?.classList.remove('hidden');
                     containerHamburgerButton?.classList.add('hidden');
@@ -100,16 +99,10 @@
                 nav?.classList.add('justify-center');
                 logoContainer?.classList.remove('absolute', 'left-0');
 
-                if (isMobile) {
-                    leftLinks?.classList.add('hidden');
-                    rightLinks?.classList.add('hidden');
-                    containerHamburgerButton?.classList.remove('hidden');
-                } else {
-                    // En escritorio, siempre mostrar los links
-                    leftLinks?.classList.remove('hidden');
-                    rightLinks?.classList.remove('hidden');
-                    containerHamburgerButton?.classList.add('hidden');
-                }
+                // Mostrar links en todas las pantallas cuando no hay scroll
+                leftLinks?.classList.remove('hidden');
+                rightLinks?.classList.remove('hidden');
+                containerHamburgerButton?.classList.add('hidden');
             }
         };
 
