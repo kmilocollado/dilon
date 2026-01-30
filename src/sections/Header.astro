@@ -8,7 +8,7 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
 
 
 
-<div class="containerHamburgerButton fixed right-5 top-5 z-[100] hidden lg:hidden">
+<div class="containerHamburgerButton fixed right-5 top-5 z-[100] hidden">
   <button
     id="menuButton"
     aria-expanded="false"
@@ -39,7 +39,7 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
     </div>
     <nav id="navContent" class="nav flex items-center justify-center px-8 py-2 text-3xl w-full text-primary font-heading transition-all duration-500 relative">
         <!-- Links Izquierdos -->
-        <div class="left-links flex items-center transition-all duration-300 md:order-1 block">
+        <div class="left-links flex items-center transition-all duration-300 md:order-1">
             <a class="text-primary font-heading hover:underline md:text-3xl text-2xl" href="/">Portfolio</a>
             <a class="text-primary font-heading ml-4 md:ml-8 hover:underline md:text-3xl text-2xl" href="/projects">Projects</a>
         </div>
@@ -53,7 +53,7 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
         </div>
 
         <!-- Links Derechos -->
-        <div class="right-links flex items-center transition-all duration-300 md:order-3 block">
+        <div class="right-links flex items-center transition-all duration-300 md:order-3">
             <a class="text-primary font-heading hover:underline md:text-3xl text-2xl" href="/about">About</a>
             <a class="text-primary font-heading ml-4 md:ml-8 hover:underline md:text-3xl text-2xl" href="/contact">Contact</a>
         </div>
@@ -105,16 +105,6 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
 
     .left-links, .right-links {
         transition: all 0.3s ease;
-    }
-
-    /* En móviles inicialmente mostrar los links */
-    @media (max-width: 768px) {
-        .left-links, .right-links {
-            display: flex !important;
-        }
-        .containerHamburgerButton {
-            display: none !important;
-        }
     }
 
     .left-links {
@@ -206,7 +196,11 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
         const containerHamburgerButton = document.querySelector('.containerHamburgerButton')
         
         const updateHeader = () => {
-            if (window.scrollY > 100) {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            const scrollY = window.scrollY;
+            
+            if (scrollY > 100) {
+                // ===== SCROLL ACTIVO (> 100px) =====
                 // Cambiar logos
                 defaultLogo?.classList.add('hidden');
                 scrollLogo?.classList.remove('hidden');
@@ -226,8 +220,6 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 logoContainer?.classList.add('md:order-1');
                 leftLinks?.classList.remove('md:order-1');
                 leftLinks?.classList.add('md:order-2');
-                rightLinks?.classList.remove('md:order-3');
-                rightLinks?.classList.add('md:order-3');
                 
                 // Hacer que los links queden juntos sin espaciado entre ellos
                 leftLinks?.classList.remove('ml-0');
@@ -238,13 +230,13 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 leftLinks?.classList.add('transform-none');
                 rightLinks?.classList.add('transform-none');
 
-                // En móviles y tablets: ocultar links, mostrar hamburguesa
-                if (window.matchMedia('(max-width: 768px)').matches) {
+                if (isMobile) {
+                    // En móviles: OCULTAR LINKS, MOSTRAR HAMBURGUESA
                     leftLinks?.classList.add('hidden');
                     rightLinks?.classList.add('hidden');
                     containerHamburgerButton?.classList.remove('hidden');
                 } else {
-                    // En escritorio, mostrar links normalmente
+                    // En desktop: MOSTRAR LINKS, OCULTAR HAMBURGUESA
                     leftLinks?.classList.remove('hidden');
                     rightLinks?.classList.remove('hidden');
                     containerHamburgerButton?.classList.add('hidden');
@@ -256,6 +248,7 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 }
 
             } else {
+                // ===== SIN SCROLL (< 100px) =====
                 // Restaurar logos
                 defaultLogo?.classList.remove('hidden');
                 scrollLogo?.classList.add('hidden');
@@ -275,8 +268,6 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 logoContainer?.classList.add('md:order-2');
                 leftLinks?.classList.remove('md:order-2');
                 leftLinks?.classList.add('md:order-1');
-                rightLinks?.classList.remove('md:order-3');
-                rightLinks?.classList.add('md:order-3');
                 
                 // Restaurar espaciado original entre los links
                 rightLinks?.classList.remove('ml-0');
@@ -290,7 +281,7 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 nav?.classList.add('justify-center');
                 logoContainer?.classList.remove('absolute', 'left-0');
 
-                // Mostrar links en todas las pantallas cuando no hay scroll
+                // SIEMPRE mostrar links cuando no hay scroll (móviles y desktop)
                 leftLinks?.classList.remove('hidden');
                 rightLinks?.classList.remove('hidden');
                 containerHamburgerButton?.classList.add('hidden');
@@ -308,13 +299,6 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
 
         // Ejecutar una vez al cargar para establecer el estado inicial
         updateHeader();
-        
-        // Estado inicial para móviles: mostrar links y ocultar menú hamburguesa
-        if (window.matchMedia('(max-width: 768px)').matches) {
-            leftLinks?.classList.remove('hidden');
-            rightLinks?.classList.remove('hidden');
-            containerHamburgerButton?.classList.add('hidden');
-        }
     });
 </script>
 <script is:inline type="module">
