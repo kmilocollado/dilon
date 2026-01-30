@@ -1,5 +1,5 @@
 import { c as createComponent, b as createAstro, r as renderComponent, a as renderTemplate, m as maybeRenderHead, d as addAttribute } from '../../chunks/astro/server_RBOATzLn.mjs';
-import { $ as $$Layout } from '../../chunks/Layout_ISyvxSgV.mjs';
+import { $ as $$Layout } from '../../chunks/Layout_D7pIEf18.mjs';
 import { g as getProjectsImage } from '../../chunks/projects-collection.api_C3nDNisu.mjs';
 /* empty css                                       */
 export { renderers } from '../../renderers.mjs';

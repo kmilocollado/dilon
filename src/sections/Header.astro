@@ -115,6 +115,11 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
         transform: none;
     }
 
+    /* Cuando se hace scroll, los links quedan juntos sin espacios */
+    .left-links.md\:order-2.ml-0 + .logo-container + .right-links.ml-0 {
+        margin-left: 0;
+    }
+
     @keyframes header-blur-scroll {
         0% {
             backdrop-filter: blur(0px);
@@ -211,6 +216,11 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 rightLinks?.classList.remove('md:order-3');
                 rightLinks?.classList.add('md:order-3');
                 
+                // Hacer que los links queden juntos sin espaciado entre ellos
+                leftLinks?.classList.remove('ml-0');
+                rightLinks?.classList.remove('ml-4', 'ml-8', 'md:ml-4', 'md:ml-8');
+                rightLinks?.classList.add('ml-0');
+                
                 // Animar los links
                 leftLinks?.classList.add('transform-none');
                 rightLinks?.classList.add('transform-none');
@@ -250,6 +260,9 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 leftLinks?.classList.add('md:order-1');
                 rightLinks?.classList.remove('md:order-3');
                 rightLinks?.classList.add('md:order-3');
+                
+                // Restaurar espaciado original entre los links
+                rightLinks?.classList.remove('ml-0');
                 
                 // Restaurar posición de los links
                 leftLinks?.classList.remove('transform-none');

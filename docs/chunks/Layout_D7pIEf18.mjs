@@ -77,6 +77,11 @@ const $$Header = createComponent(($$result, $$props, $$slots) => {
                 rightLinks?.classList.remove('md:order-3');
                 rightLinks?.classList.add('md:order-3');
                 
+                // Hacer que los links queden juntos sin espaciado entre ellos
+                leftLinks?.classList.remove('ml-0');
+                rightLinks?.classList.remove('ml-4', 'ml-8', 'md:ml-4', 'md:ml-8');
+                rightLinks?.classList.add('ml-0');
+                
                 // Animar los links
                 leftLinks?.classList.add('transform-none');
                 rightLinks?.classList.add('transform-none');
@@ -116,6 +121,9 @@ const $$Header = createComponent(($$result, $$props, $$slots) => {
                 leftLinks?.classList.add('md:order-1');
                 rightLinks?.classList.remove('md:order-3');
                 rightLinks?.classList.add('md:order-3');
+                
+                // Restaurar espaciado original entre los links
+                rightLinks?.classList.remove('ml-0');
                 
                 // Restaurar posición de los links
                 leftLinks?.classList.remove('transform-none');
