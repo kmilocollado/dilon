@@ -157,9 +157,9 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
         visibility 0.3s;
         background: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(10px);
-        position: fixed;
+        position: relative;
         top: 0;
-        right: 0;
+        left: 18dvw;
         height: 100vh;
         max-width: 17rem;
         flex-direction: column;
@@ -216,7 +216,7 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 logoContainer?.querySelector('figure')?.classList.remove('md:w-28', 'md:h-28','h-20', 'w-28');
 
                 // Ajustar espaciado del contenedor del logo
-                logoContainer?.classList.remove('mx-8');
+                logoContainer?.classList.remove('mx-4');
                 logoContainer?.classList.add('mx-0');
                 
                 // Reordenar elementos: logo a la izquierda, links a la derecha
@@ -261,7 +261,7 @@ import Whatsapp from'@/assets/svg/whatsapp.svg';
                 
                 // Restaurar espaciado del contenedor del logo
                 logoContainer?.classList.remove('mx-0');
-                logoContainer?.classList.add('mx-8');
+                logoContainer?.classList.add('mx-4');
                 
                 // Restaurar orden original
                 // NO removemos md:order porque eso quiebra el responsive design
