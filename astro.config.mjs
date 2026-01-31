@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://dlionphotography.com',
   base: '',
-  outDir: './docs',
+  outDir: 'docs',
   vite: {
     plugins: [tailwindcss()]
   },
