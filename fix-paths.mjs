@@ -46,3 +46,10 @@ function walkDir(dir) {
 console.log('🔄 Convirtiendo rutas absolutas a relativas...');
 walkDir(docsDir);
 console.log('✅ Listo!');
+
+// Ensure CNAME exists
+const cnameFile = path.join(docsDir, 'CNAME');
+if (!fs.existsSync(cnameFile)) {
+  fs.writeFileSync(cnameFile, 'dlionphotography.com', 'utf-8');
+  console.log('✓ CNAME creado');
+}
