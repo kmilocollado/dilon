@@ -15,9 +15,12 @@ function processFile(filePath) {
   
   // /images/ -> ./images/
   content = content.replace(/src="\/images\//g, 'src="./images/');
+  content = content.replace(/href="\/images\//g, 'href="./images/');
   
-  // /" -> "./"
-  content = content.replace(/href="\/(?![\w-])/g, 'href="./');
+  // /about, /contact, /projects, etc. -> ./about, ./contact, ./projects, etc.
+  // Pero solo si no son externos (no tienen :// después)
+  content = content.replace(/href="\/([a-zA-Z\-]+)/g, 'href="./$1');
+  content = content.replace(/href="\/(projects\/[^"]*)/g, 'href="./$1');
   
   fs.writeFileSync(filePath, content, 'utf-8');
   console.log(`✓ Procesado: ${filePath}`);
